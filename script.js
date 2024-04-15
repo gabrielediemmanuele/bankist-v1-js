@@ -212,3 +212,49 @@ const startLogOutTimer = function () {
 
 // Event handlers - global scope
 let currentAccount, timer;
+
+//! Log-In
+btnLogin.addEventListener('click', function (e) {
+  // Prevent form from submitting
+  e.preventDefault();
+
+  currentAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // Display UI and message
+    labelWelcome.textContent = `Welcome back, ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+    containerApp.style.opacity = 100;
+    //Create current date and time
+    const now = new Date();
+    const options = {
+      hour: 'numeric',
+      minute: 'numeric',
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric',
+      /* weekday: 'long', */
+    };
+
+    //Create current date and time
+    labelDate.textContent = new Intl.DateTimeFormat(
+      currentAccount.locale,
+      options
+    ).format(now);
+
+    // Clear input fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+
+    //Reset timer in another account
+    if (timer) clearInterval(timer);
+    //Log-out timer
+    timer = startLogOutTimer();
+
+    // Update UI
+    updateUI(currentAccount);
+  }
+});
