@@ -290,3 +290,29 @@ btnTransfer.addEventListener('click', function (e) {
     timer = startLogOutTimer();
   }
 });
+
+//! Loan - Form Logic
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Math.floor(inputLoanAmount.value);
+
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    setTimeout(function () {
+      // Add movement
+      currentAccount.movements.push(amount);
+
+      // Add loan date
+      currentAccount.movementsDates.push(new Date().toISOString());
+
+      // Update UI
+      updateUI(currentAccount);
+
+      //reset timer
+      clearInterval(timer);
+      timer = startLogOutTimer();
+    }),
+      2500;
+  }
+  inputLoanAmount.value = '';
+});
