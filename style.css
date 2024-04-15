@@ -312,3 +312,9 @@ footer {
   text-align: center;
   padding: 30px;
 }
+footer span a {
+  color: white;
+}
+footer span a:hover {
+  color: rgb(255, 100, 100);
+}
