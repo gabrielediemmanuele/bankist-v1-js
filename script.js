@@ -75,7 +75,7 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 // Functions
 
-//! Date Formatting
+//! Date Formatting - on place based.
 const formatMovementDate = function (date, locale) {
   //change date text current date to -> today, yesterday ecc
   const calcDaysPassed = (date1, date2) =>
@@ -88,4 +88,12 @@ const formatMovementDate = function (date, locale) {
   if (daysPassed <= 7) return `${daysPassed} days ago`;
 
   return new Intl.DateTimeFormat(locale).format(date);
+};
+
+//! Currency Formatting - on place based.
+const formatCur = function (value, locale, currency) {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+  }).format(value);
 };
