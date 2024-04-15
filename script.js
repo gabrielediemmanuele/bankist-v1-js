@@ -108,7 +108,7 @@ const displayMovements = function (acc, sort = false) {
     : acc.movements;
 
   movs.forEach(function (mov, i) {
-    const type = mov > 0 ? 'deposit' : ' withdrawal';
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
     //time and date
     const date = new Date(acc.movementsDates[i]);
     const displayDate = formatMovementDate(date, acc.locale);
