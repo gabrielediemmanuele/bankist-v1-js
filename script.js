@@ -180,3 +180,35 @@ const updateUI = function (acc) {
   // Display summary
   calcDisplaySummary(acc);
 };
+
+//! Log-Out security timer
+const startLogOutTimer = function () {
+  const tick = function () {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const sec = String(time % 60).padStart(2, 0);
+
+    //In each call, print the remaning time to UI
+    labelTimer.textContent = `${min}:${sec}`;
+
+    // When 0 seconds, stop time and log out user
+    if (time === 0) {
+      clearInterval(timer);
+      labelWelcome.textContent = `Log in to get Started...`;
+      containerApp.style.opacity = 0;
+    }
+
+    //Decrease 1s
+    time--;
+  };
+
+  // Set time to 5 min
+  let time = 300;
+
+  //Call the timer every second
+  tick();
+  const timer = setInterval(tick, 1000);
+  return timer;
+};
+
+// Event handlers - global scope
+let currentAccount, timer;
